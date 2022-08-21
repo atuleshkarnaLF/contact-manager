@@ -1,17 +1,26 @@
 import React from "react";
 import { Formik } from "formik";
 import { Link, useNavigate } from "react-router-dom";
-import { AUTH_ROUTE, HOME } from "../../constants/routes";
+import { ADMIN_ROUTE, AUTH_ROUTE, HOME } from "../../constants/routes";
 import { loginSchema } from "../../schemas/loginSchema";
+import toastr from "toastr";
+import { login } from "../../services/LoginService";
 
 export const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (values: any) => {
     try {
-      // const data = await login(values);
-
-      navigate(HOME);
+      const response = await login(values);
+      if (response) {
+        localStorage.setItem("accessToken", response.accessToken);
+        localStorage.setItem("refreshToken", response.refreshToken);
+        if (response.accessToken) {
+          localStorage.setItem("isAuth", "true");
+          toastr.success("Login Successful");
+        }
+        navigate(ADMIN_ROUTE.CONTACT_LIST);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -80,3 +89,6 @@ export const Login = () => {
     </Formik>
   );
 };
+function CONTACT_LIST(CONTACT_LIST: any) {
+  throw new Error("Function not implemented.");
+}

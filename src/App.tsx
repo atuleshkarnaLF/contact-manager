@@ -7,10 +7,11 @@ import "toastr/toastr.scss";
 import "react-responsive-modal/styles.css";
 
 function App() {
+  const isAuth = !!localStorage.getItem("isAuth");
   return (
     <>
       <BrowserRouter>
-        <Router isAuthenticated={true} />
+        <Router isAuthenticated={isAuth} />
       </BrowserRouter>
     </>
   );

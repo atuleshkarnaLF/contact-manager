@@ -9,3 +9,9 @@ export async function createUser(
 
   return response?.data;
 }
+
+export async function login(payLoad: CreateUser): Promise<any> {
+  const response = await http.post(config.endpoints.auth.login, payLoad);
+
+  return response?.data?.data;
+}

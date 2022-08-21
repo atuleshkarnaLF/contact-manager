@@ -1,10 +1,16 @@
 import React, { FC } from "react";
 import classnames from "classnames";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { HeaderProps } from "../../types/header";
+import { AUTH_ROUTE } from "../../constants/routes";
 
 const Header: FC<HeaderProps> = ({ navbarPages }) => {
   const { pathname } = useLocation();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    localStorage.clear();
+    navigate(AUTH_ROUTE.LOGIN);
+  };
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -35,6 +41,13 @@ const Header: FC<HeaderProps> = ({ navbarPages }) => {
                   </Link>
                 );
               })}
+              <button
+                className="btn btn-danger"
+                style={{ position: "absolute", right: "15px" }}
+                onClick={handleLogout}
+              >
+                Logout
+              </button>
             </div>
           </div>
         </div>
