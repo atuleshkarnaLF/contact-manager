@@ -7,7 +7,7 @@ const Header: FC<HeaderProps> = ({ navbarPages }) => {
   const { pathname } = useLocation();
   return (
     <>
-      <nav className="navbar navbar-expand-lg bg-light">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container-fluid">
           <button
             className="navbar-toggler"
