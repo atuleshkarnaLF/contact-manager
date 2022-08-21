@@ -19,3 +19,18 @@ export async function deleteContact(id: string): Promise<ContactResponse> {
   const response = await http.delete(url);
   return response?.data;
 }
+
+export async function getContactById(id: string): Promise<Contact> {
+  const url = `${config.endpoints.contact.contact}/${id}`;
+  const response = await http.get(url);
+  return response?.data?.data;
+}
+
+export async function updateContactById(
+  id: string,
+  payload: CreateContact
+): Promise<any> {
+  const url = `${config.endpoints.contact.contact}/${id}`;
+  const response = await http.put(url, payload);
+  return response?.data?.data;
+}

@@ -8,8 +8,6 @@ export const Login = () => {
   const navigate = useNavigate();
 
   const handleLogin = async (values: any) => {
-    console.log(values);
-
     try {
       // const data = await login(values);
 
@@ -30,50 +28,54 @@ export const Login = () => {
       }}
     >
       {(props) => (
-        <div className="login__form">
-          <form onSubmit={props.handleSubmit} noValidate>
-            <div className="form-group">
-              <input
-                id="email"
-                name="email"
-                type="email"
-                className="form-control"
-                required
-                placeholder="Enter your email"
-                value={props.values.email}
-                onChange={props.handleChange}
-                onBlur={props.handleBlur}
-              />
-            </div>
+        <>
+          <h1 className="text-center">Login to user account</h1>
 
-            <div className="form-group">
-              <input
-                id="password"
-                name="password"
-                className="form-control"
-                type="password"
-                required
-                placeholder="Enter your Password"
-                value={props.values.password}
-                onChange={props.handleChange}
-                onBlur={props.handleBlur}
-              />
-            </div>
+          <div className="login__form">
+            <form onSubmit={props.handleSubmit} noValidate>
+              <div className="form-group">
+                <input
+                  id="email"
+                  name="email"
+                  type="email"
+                  className="form-control"
+                  required
+                  placeholder="Enter your email"
+                  value={props.values.email}
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                />
+              </div>
 
-            <div className="form-group">
-              <button type="submit" className="btn btn-primary">
-                Sign In
-              </button>
-            </div>
+              <div className="form-group">
+                <input
+                  id="password"
+                  name="password"
+                  className="form-control"
+                  type="password"
+                  required
+                  placeholder="Enter your Password"
+                  value={props.values.password}
+                  onChange={props.handleChange}
+                  onBlur={props.handleBlur}
+                />
+              </div>
 
-            <div className="login__signup text-center">
-              <p>
-                Don't have an account?
-                <Link to={AUTH_ROUTE.SIGNUP}>Sign up</Link>
-              </p>
-            </div>
-          </form>
-        </div>
+              <div className="form-group">
+                <button type="submit" className="btn btn-primary">
+                  Sign In
+                </button>
+              </div>
+
+              <div className="login__signup text-center">
+                <p>
+                  Don't have an account?
+                  <Link to={AUTH_ROUTE.SIGNUP}>Sign up</Link>
+                </p>
+              </div>
+            </form>
+          </div>
+        </>
       )}
     </Formik>
   );

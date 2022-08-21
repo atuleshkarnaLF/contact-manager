@@ -4,6 +4,7 @@ import Router from "./Router";
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.css";
 import "toastr/toastr.scss";
+import "react-responsive-modal/styles.css";
 
 function App() {
   return (

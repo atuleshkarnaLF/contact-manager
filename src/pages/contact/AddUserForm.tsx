@@ -1,14 +1,32 @@
-import React, { useState } from "react";
-import { createContact } from "../../services/ContactService";
+import React, { FC, useState } from "react";
+import {
+  createContact,
+  updateContactById,
+} from "../../services/ContactService";
 import toastr from "toastr";
-
-const AddUserForm = () => {
-  const [name, setName] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  const [phone, setPhone] = useState<string>("");
+import { Contact } from "../../types/contact";
+interface Props {
+  id?: string;
+  updateName?: string;
+  updateEmail?: string;
+  updatePhone?: string;
+  updatePhotograph?: string;
+  isUpdate?: boolean;
+}
+const AddUserForm: FC<Props> = ({
+  id,
+  updateName = "",
+  updateEmail = "",
+  updatePhone = "",
+  updatePhotograph = "",
+  isUpdate,
+}) => {
+  const [name, setName] = useState<string>(updateName || "");
+  const [email, setEmail] = useState<string>(updateEmail || "");
+  const [phone, setPhone] = useState<string>(updatePhone || "");
   const [previewSource, setPreviewSource] = useState<
     string | ArrayBuffer | null
-  >(null);
+  >(updatePhotograph || "");
 
   const handleInputFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) {
@@ -35,8 +53,13 @@ const AddUserForm = () => {
       phone,
       photograph: previewSource,
     };
+
     try {
-      await createContact(formData as any);
+      {
+        !isUpdate && formData
+          ? await createContact(formData as any)
+          : await updateContactById(id!, formData as any);
+      }
       toastr.success("User contact created successfully");
       window.location.reload();
     } catch (error) {
@@ -45,7 +68,7 @@ const AddUserForm = () => {
   };
   return (
     <form className="column" onSubmit={handleSubmit}>
-      {previewSource && (
+      {previewSource && !isUpdate && (
         <div className="display-img">
           <img src={previewSource as string} alt="Selected" />
         </div>
@@ -93,6 +116,7 @@ const AddUserForm = () => {
           onChange={handleInputFileChange}
         />
       </div>
+
       <div className="form-group">
         <button type="submit" className="btn btn-primary">
           Submit

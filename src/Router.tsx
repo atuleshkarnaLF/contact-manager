@@ -54,7 +54,6 @@ const Router = ({ isAuthenticated }: Props) => {
     });
   }
   const element = useRoutes([...routes]);
-  console.log(routes);
 
   return element;
 };
