@@ -1,8 +1,10 @@
 import React from "react";
 import { Formik } from "formik";
-import { Link, useNavigate } from "react-router-dom";
-import { AUTH_ROUTE, HOME } from "../../constants/routes";
+import { useNavigate } from "react-router-dom";
+import { AUTH_ROUTE } from "../../constants/routes";
 import { loginSchema } from "../../schemas/loginSchema";
+import { createUser } from "../../services/LoginService";
+import toastr from "toastr";
 
 export const Signup = () => {
   const navigate = useNavigate();
@@ -10,8 +12,8 @@ export const Signup = () => {
     console.log(values);
 
     try {
-      // const data = await login(values);
-
+      const response = await createUser(values);
+      toastr.success(response.message);
       navigate(AUTH_ROUTE.LOGIN);
     } catch (error) {
       console.log(error);
