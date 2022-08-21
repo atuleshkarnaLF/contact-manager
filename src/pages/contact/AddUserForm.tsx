@@ -1,8 +1,10 @@
 import React, { useState } from "react";
+import { createContact } from "../../services/ContactService";
 
 const AddUserForm = () => {
   const [name, setName] = useState<string>("");
   const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
   const [previewSource, setPreviewSource] = useState<
     string | ArrayBuffer | null
   >(null);
@@ -23,20 +25,18 @@ const AddUserForm = () => {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!name || !email || !previewSource) {
+    if (!name || !email || !phone || !previewSource) {
       return;
     }
     const formData = {
       name,
       email,
-      fileString: previewSource,
+      phone,
+      photograph: previewSource,
     };
     try {
-      await fetch(`${process.env.REACT_APP_API_BASE_URI}/users/contact`, {
-        method: "POST",
-        body: JSON.stringify(formData),
-        headers: { "Content-type": "application/json" },
-      });
+      console.log(formData);
+      await createContact(formData as any);
     } catch (error) {
       console.log(error);
     }
@@ -68,6 +68,17 @@ const AddUserForm = () => {
           placeholder="Enter email"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
+        />
+      </div>
+      <div className="form-group">
+        <label htmlFor="name">Phone</label>
+        <input
+          type="text"
+          className="form-control"
+          id="phone"
+          placeholder="Enter phone number"
+          value={phone}
+          onChange={(e) => setPhone(e.target.value)}
         />
       </div>
       <div className="form-group">

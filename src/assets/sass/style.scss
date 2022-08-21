@@ -1,11 +1,10 @@
 .column-wrap {
-  display: flex;
-  flex-wrap: wrap;
+  // display: flex;
+  // flex-wrap: wrap;
   justify-content: center;
-  margin: 0 -15px;
+  padding: 20px;
 }
 .column {
-  width: calc(33.33% - 30px);
   margin: 10px 15px;
   border: 1px solid black;
   border-radius: 15px;
