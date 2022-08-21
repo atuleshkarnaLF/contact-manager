@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from "react";
 import useMountEffect from "../../hooks/useMountEffect";
-import { fetchAllContacts } from "../../services/ContactService";
+import { deleteContact, fetchAllContacts } from "../../services/ContactService";
 import { Contact } from "../../types/contact";
 import AddUserForm from "./AddUserForm";
-
+import toastr from "toastr";
 const ContactList = () => {
   const [contactList, setContactList] = useState<Contact[]>();
 
   useMountEffect(() => {
     handleFetchContacts();
   });
+
   const handleFetchContacts = async () => {
     try {
       const response = await fetchAllContacts();
       setContactList(response);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleDelete = async (id: string) => {
+    try {
+      const response = await deleteContact(id);
+      toastr.success(response.message);
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }
@@ -51,7 +62,12 @@ const ContactList = () => {
                     </div>
                     <div>
                       <button className="btn btn-info">Edit</button>
-                      <button className="btn btn-danger">Delete</button>
+                      <button
+                        className="btn btn-danger"
+                        onClick={(e) => handleDelete(item.id)}
+                      >
+                        Delete
+                      </button>
                     </div>
                   </div>
                 );

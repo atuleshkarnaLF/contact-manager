@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { createContact } from "../../services/ContactService";
+import toastr from "toastr";
 
 const AddUserForm = () => {
   const [name, setName] = useState<string>("");
@@ -35,8 +36,9 @@ const AddUserForm = () => {
       photograph: previewSource,
     };
     try {
-      console.log(formData);
       await createContact(formData as any);
+      toastr.success("User contact created successfully");
+      window.location.reload();
     } catch (error) {
       console.log(error);
     }

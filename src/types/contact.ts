@@ -6,3 +6,9 @@ export interface Contact {
   photograph: string;
 }
 export type CreateContact = Omit<Contact, "id">;
+
+export interface ContactResponse {
+  data: any;
+  statusCode: number;
+  message: string;
+}
